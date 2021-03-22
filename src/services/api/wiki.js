@@ -12,7 +12,7 @@ const defaultParams = {
 };
 
 const api = {
-  getArticles({ coord, radius = 10000, limit = 20 }) {
+  getArticles({ coord, radius = 10000, limit = 100 }) {
     const params = {
       action: 'query',
       list: 'geosearch',

@@ -1,4 +1,5 @@
 import wikiApi from './api/wiki';
+import { useMapStore } from '../store/store';
 
 const listeners = {};
 
@@ -20,10 +21,25 @@ const attachListener = (eventName, listener) => {
   listeners[eventName] = listener;
 };
 
+const mapWikiArticlestoMarkers = articles => {
+  return articles.map(({ lat, lon, pageid, title }) => ({
+    title,
+    pageid,
+    lat,
+    lng: lon,
+  }));
+};
+
 const useMapMediator = () => {
+  const [, { addMarkers }] = useMapStore();
+
   const mapDragged = async center => {
-    const articles = await wikiApi.getArticles({ coord: center });
+    const res = await wikiApi.getArticles({ coord: center });
+    const articles = mapWikiArticlestoMarkers(res.query.geosearch);
+
     console.log('MapMediator:mapDragged fetched articles:', articles);
+
+    addMarkers(articles);
   };
 
   const mapLoaded = async center => {
