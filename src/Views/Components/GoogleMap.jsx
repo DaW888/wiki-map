@@ -6,10 +6,11 @@ import { useMapStore } from '../../store/store';
 import { Tooltip } from 'antd';
 
 const defaultPosition = {
-  lat: 54.3478088,
-  lng: 18.6598646,
+  lat: 50.0463611,
+  lng: 19.9215335,
 };
-const defaultZoom = 16;
+
+const defaultZoom = 15;
 
 const GoogleMap = () => {
   const [{ markers }] = useMapStore();

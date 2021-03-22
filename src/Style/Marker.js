@@ -8,6 +8,7 @@ const Marker = styled.div`
   box-shadow: 0 0 4px #1692ff;
   opacity: 0.8;
   cursor: pointer;
+  transform: translate(-50%, -50%);
 `;
 
 export default Marker;
