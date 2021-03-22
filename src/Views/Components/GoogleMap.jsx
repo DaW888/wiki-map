@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import GoogleMapReact from 'google-map-react';
-import wikiApi from '../../services/api/wiki';
+import { emit } from '../../services/mediator';
 
 const defaultPosition = {
   lat: 54.3478088,
@@ -10,10 +10,7 @@ const defaultZoom = 11;
 
 const GoogleMap = () => {
   useEffect(() => {
-    (async () => {
-      const articles = await wikiApi.getArticles({ coord: defaultPosition });
-      console.log(articles);
-    })();
+    emit('mapLoaded', defaultPosition);
   }, []);
 
   return (
@@ -22,6 +19,7 @@ const GoogleMap = () => {
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_API_KEY }}
         defaultCenter={defaultPosition}
         defaultZoom={defaultZoom}
+        onChange={event => emit('mapDragged', event.center)}
       />
     </div>
   );
